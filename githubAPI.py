@@ -2,6 +2,11 @@ import requests
 #import json
 
 def getUserHistory(user_id):
+    if not isinstance(user_id, str):
+        print("Input must be a string")
+        return []
+    user_id.strip
+
     url = f"https://api.github.com/users/{user_id}/repos"
     response = requests.get(url)
     if response.status_code != 200:
@@ -22,8 +27,4 @@ def getUserHistory(user_id):
         numCommits = len(commits)
         commitsCount.append((repoName, numCommits))
     return commitsCount
-
-history = getUserHistory("JonMIke8")
-for repo_name, num_commits in history:
-    print(f"Repository: {repo_name}, Commits: {num_commits}")
 
