@@ -36,5 +36,15 @@ class TestGetUserHistory(unittest.TestCase):
 
         self.assertEqual(result, [])
 
+    @patch('githubAPI.requests.get')
+    def test_empty_response(self, mockGet):
+        mockResponse = Mock()
+        mockResponse.status_code = 200
+        mockResponse.json.return_value = []
+        mockGet.return_value = mockResponse
+
+        result = getUserHistory('test_user')
+
+        self.assertEqual(result, [])
 if __name__ == '__main__':
     unittest.main()
